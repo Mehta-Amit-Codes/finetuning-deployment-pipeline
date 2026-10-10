@@ -1,5 +1,7 @@
 # Fine-Tuning + Deployment Pipeline
 
+[![Diagram](https://img.shields.io/badge/gitdiagram-view%20architecture-blue)](https://gitdiagram.com/mehta-amit-codes/finetuning-deployment-pipeline)
+
 Reference implementation of the "Fine-Tuning + Deployment Pipeline" blueprint:
 task-specific dataset → QLoRA fine-tune → package → serve behind a gateway →
 rigorous A/B against the base model → automatic rollback. Includes a Streamlit
