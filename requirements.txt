@@ -1,0 +1,11 @@
+# Lean requirements: dataset prep, A/B harness, gateway, Streamlit UI.
+# No torch needed here; training deps live in requirements-train.txt.
+fastapi>=0.115
+uvicorn[standard]>=0.30
+openai>=1.51
+pydantic>=2.9
+requests>=2.32
+streamlit>=1.38
+pandas>=2.2
+numpy>=1.26
+python-dotenv>=1.0
