@@ -1,0 +1,11 @@
+.env
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.db
+.streamlit/
+data/
+outputs/
+eval_results/
+.pytest_cache/
