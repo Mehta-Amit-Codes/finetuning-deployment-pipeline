@@ -1,0 +1,42 @@
+services:
+  vllm:
+    image: vllm/vllm-openai:latest
+    ipc: host
+    command: >
+      --model ${BASE_MODEL_ID:-Qwen/Qwen2.5-1.5B-Instruct}
+      --enable-lora --max-lora-rank 16
+      --lora-modules triage-lora=/models/adapter
+      --port 8000
+    volumes:
+      - ./outputs:/models
+      - hf_cache:/root/.cache/huggingface
+    ports:
+      - "8000:8000"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+  gateway:
+    build: .
+    depends_on: [vllm]
+    environment:
+      GROK_API_KEY: ${GROK_API_KEY}
+      BASE_ENDPOINT: http://vllm:8000/v1
+      FT_ENDPOINT: http://vllm:8000/v1
+      BASE_MODEL_NAME: ${BASE_MODEL_ID:-Qwen/Qwen2.5-1.5B-Instruct}
+      FT_MODEL_NAME: triage-lora
+      FT_TRAFFIC_PCT: ${FT_TRAFFIC_PCT:-50}
+      ADMIN_KEY: ${ADMIN_KEY:-}
+      GATEWAY_DB: /data/gateway.db
+    volumes:
+      - gateway_data:/data
+    ports:
+      - "8004:8004"
+
+volumes:
+  hf_cache:
+  gateway_data:
