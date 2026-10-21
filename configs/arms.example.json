@@ -1,0 +1,6 @@
+[
+  {"name": "base",         "endpoint": "http://localhost:8000/v1", "model": "Qwen/Qwen2.5-1.5B-Instruct", "fewshot": false},
+  {"name": "base_fewshot", "endpoint": "http://localhost:8000/v1", "model": "Qwen/Qwen2.5-1.5B-Instruct", "fewshot": true},
+  {"name": "finetuned",    "endpoint": "http://localhost:8000/v1", "model": "triage-lora",                "fewshot": false},
+  {"name": "merged_4bit",  "endpoint": "http://localhost:8010/v1", "model": "/models/merged",             "fewshot": false}
+]
