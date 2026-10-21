@@ -51,7 +51,7 @@ def gateway(method: str, path: str, admin: bool = False, **kw):
 
 
 tab_data, tab_train, tab_ab, tab_gw, tab_scale = st.tabs(
-    ["📚 Dataset", "📉 Training", "⚖️ A/B Results", "🚦 Gateway", "📈 Scaling"])
+    ["Dataset", "Training", "⚖️ A/B Results", "🚦 Gateway", "Scaling"])
 
 # ---------------------------------------------------------------- Dataset ----
 with tab_data:
@@ -198,7 +198,7 @@ with tab_ab:
             for m, d in comp.items():
                 if d["mean_diff"] is None:
                     continue
-                verdict = ("✅ real lift" if d["ci_low"] > 0 else "🔻 worse" if d["ci_high"] < 0
+                verdict = ("real lift" if d["ci_low"] > 0 else "worse" if d["ci_high"] < 0
                            else "➖ inconclusive (CI spans 0)")
                 comp_rows.append({"comparison": name, "metric": m, "lift": f"{d['mean_diff']:+.3f}",
                                   "95% CI": f"[{d['ci_low']:+.3f}, {d['ci_high']:+.3f}]",
@@ -215,7 +215,7 @@ with tab_gw:
     state = gateway("GET", "/admin/state", admin=True)
     if state:
         if state["rollback_active"]:
-            st.error("🛑 ROLLBACK ACTIVE: 100% of traffic is on the base model.")
+            st.error("ROLLBACK ACTIVE: 100% of traffic is on the base model.")
         else:
             st.success(f"Serving: {state['ft_traffic_pct']:.0f}% fine-tuned / {100 - state['ft_traffic_pct']:.0f}% base")
 
@@ -233,7 +233,7 @@ with tab_gw:
             if b2.button("Clear rollback"):
                 gateway("POST", "/admin/rollback/reset", admin=True)
                 st.rerun()
-            degrade = st.toggle("💥 Demo: degrade fine-tuned model", value=state["demo_degrade"],
+            degrade = st.toggle("Demo: degrade fine-tuned model", value=state["demo_degrade"],
                                 help="Truncates fine-tuned output to simulate a bad model regression. "
                                      "Send ~15 requests and watch automatic rollback fire.")
             if degrade != state["demo_degrade"]:

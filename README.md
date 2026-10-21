@@ -109,7 +109,7 @@ rolling window of the fine-tuned arm's traffic, if JSON validity drops below
 on and **all traffic goes to base** until an operator clears it. Clearing resets
 the window so old bad requests don't instantly re-trigger it.
 
-Try it: in the *Gateway* tab turn on **💥 Demo: degrade fine-tuned model**
+Try it: in the *Gateway* tab turn on **Demo: degrade fine-tuned model**
 (truncates fine-tuned output to simulate a regression), send a burst of ~20
 requests, and watch the event log record the automatic rollback.
 
